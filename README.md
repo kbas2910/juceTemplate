@@ -11,3 +11,4 @@ How to/ steps:
 2) Change files to fit own project: 
     a. open top level CMakeLists.txt in editor
     
+    b. inside the directory "plugin" adapt te file CMakeLists.txt to your needs
