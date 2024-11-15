@@ -12,3 +12,4 @@ How to/ steps:
     a. open top level CMakeLists.txt in editor
     
     b. inside the directory "plugin" adapt te file CMakeLists.txt to your needs
+	- do this and that
