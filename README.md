@@ -13,3 +13,4 @@ How to/ steps:
     
     b. inside the directory "plugin" adapt te file CMakeLists.txt to your needs
 	- do this and that
+	- do some more
