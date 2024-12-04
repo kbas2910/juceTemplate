@@ -19,7 +19,7 @@ namespace audio_plugin {
 
         g.setColour(juce::Colours::white);
         g.setFont(15.0f);
-        g.drawFittedText(mClass.getString(), getLocalBounds(),
+        g.drawFittedText("Es werde Licht!", getLocalBounds(),
                        juce::Justification::centred, 1);
     }
 

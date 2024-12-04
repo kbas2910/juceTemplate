@@ -1,7 +1,6 @@
 #pragma once
 
 #include "PluginProcessor.h"
-#include "someClass.h"
 
 
 namespace audio_plugin {
@@ -16,10 +15,7 @@ namespace audio_plugin {
             void resized() override;
 
         private:
-            ProcessorX& processorRef;
-
-            someClass mClass ;
-        
+            ProcessorX& processorRef;        
             JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(EditorX)
     };
 

@@ -17,10 +17,8 @@ juce_add_plugin(${PROJECT_NAME}
 	#ICON_BIG ${CMAKE_CURRENT_SOURCE_DIR}/plugin/assets/Bypass.png
 )
 
-#juce_enable_copy_plugin_step(${PROJECT_NAME})
-
 target_include_directories(${PROJECT_NAME}
-	PRIVATE ${PROJECT_SOURCE_DIR}/include
+	PRIVATE ${PROJECT_SOURCE_DIR}/src
 	PRIVATE ${LIB_DIR}/juce/modules
 )
 
@@ -31,7 +29,9 @@ target_link_directories(${PROJECT_NAME}
 
 file(GLOB_RECURSE SourceFiles CONFIGURE_DEPENDS 
 	"${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" 
-	"${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp" 
+ 
 )
 
 target_sources("${PROJECT_NAME}" 
@@ -50,7 +50,7 @@ target_link_libraries(${PROJECT_NAME}
     	PRIVATE
 		juce::juce_audio_utils  
 		juce::juce_dsp
-            juce::juce_osc
+            	juce::juce_osc
 	PUBLIC
 		juce::juce_recommended_config_flags
       		juce::juce_recommended_lto_flags
