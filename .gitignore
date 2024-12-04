@@ -1,3 +1,4 @@
+*.filtergraph
 .vs
 .vscode
 libs/

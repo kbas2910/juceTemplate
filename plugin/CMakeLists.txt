@@ -1,11 +1,8 @@
 cmake_minimum_required(VERSION 3.27.5)       
 
-project(Plugin 
-	VERSION 1.0
-) 
+project(Plugin VERSION 1.0) 
 
-
-set(JUCE_ENABLE_MODULE_SOURCE_GROUPS ON)
+set(JUCE_BUILD_EXTRAS ON)
 
 juce_add_plugin(${PROJECT_NAME}
     COMPANY_NAME BASCOMP 
@@ -15,29 +12,31 @@ juce_add_plugin(${PROJECT_NAME}
     PLUGIN_MANUFACTURER_CODE MANU 
     PLUGIN_CODE EXPL 
     FORMATS Standalone VST3 
-    PRODUCT_NAME ${PROJECT_NAME} 
+    PRODUCT_NAME ${PROJECT_NAME}
+    COPY_PLUGIN_AFTER_BUILD TRUE
+	#ICON_BIG ${CMAKE_CURRENT_SOURCE_DIR}/plugin/assets/Bypass.png
 )
-  
+
+#juce_enable_copy_plugin_step(${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
-	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include
-	PRIVATE ${CMAKE_BINARY_DIR}/libs/juce/modules
+	PRIVATE ${PROJECT_SOURCE_DIR}/include
+	PRIVATE ${LIB_DIR}/juce/modules
 )
 
 target_link_directories(${PROJECT_NAME} 
-	PRIVATE ${CMAKE_BINARY_DIR}/libs/juce/modules
-)
-..
-
-target_sources(${PROJECT_NAME}
-    PRIVATE
-     	${CMAKE_CURRENT_SOURCE_DIR}/src/PluginEditor.cpp
-     	${CMAKE_CURRENT_SOURCE_DIR}/src/PluginProcessor.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/include/PluginEditor.h
-	${CMAKE_CURRENT_SOURCE_DIR}/include/PluginProcessor.h
-
+	PRIVATE ${LIB_DIR}/juce/modules
 )
 
+
+file(GLOB_RECURSE SourceFiles CONFIGURE_DEPENDS 
+	"${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" 
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
+)
+
+target_sources("${PROJECT_NAME}" 
+	PRIVATE ${SourceFiles}
+)
 
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE
@@ -49,11 +48,15 @@ target_compile_definitions(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     	PRIVATE
-		juce::juce_audio_utils    
+		juce::juce_audio_utils  
+		juce::juce_dsp
+            juce::juce_osc
 	PUBLIC
 		juce::juce_recommended_config_flags
-      	juce::juce_recommended_lto_flags
-      	juce::juce_recommended_warning_flags)
+      		juce::juce_recommended_lto_flags
+      		juce::juce_recommended_warning_flags)
+
+juce_generate_juce_header(${PROJECT_NAME})
 
 
 if (MSVC)
@@ -63,8 +66,6 @@ else()
 endif()
 
 
-# install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-# install(FILES ${PROJECT_BINARY_DIR}/AMAConfig.h DESTINATION include)
 
 
 
